@@ -1,5 +1,5 @@
 {
-  "name": "vueblog",
+  "name": "hpapp",
   "version": "2.3.2",
   "description": "A blog system based on Nuxt.js",
   "author": "aiyou <571562801@qq.com>",
@@ -7,6 +7,8 @@
     "dev": "nodemon -w ./server -w ./start.js --exec node ./start.js",
     "build": "nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production node build/main.js",
+    "deploy:set": "pm2 deploy ecosystem.config.js production setup",
+    "deploy": "pm2 deploy ecosystem.config.js production",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "fix": "eslint --fix .js,.vue --ignore-path .gitignore ."
