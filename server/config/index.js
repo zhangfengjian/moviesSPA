@@ -30,7 +30,7 @@ export default {
   app: {
     domain: '47.107.250.36',
     host: '127.0.0.1',
-    port: 8000,
+    port: 3000,
     routerBaseApi: 'api'
   },
   category:[
