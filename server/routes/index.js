@@ -10,6 +10,8 @@ const tag = require('../controllers/tag')
 const article = require('../controllers/article')
 const comment = require('../controllers/comment')
 const tool = require('../controllers/tool')
+const moviesHome = require('../controllers/movies_home')
+const category = require('../controllers/category')
 
 router
   .get('/rss.xml', tool.rss)
@@ -22,10 +24,11 @@ router
   .get('/api/oauth/github/:state?', user.githubLogin)
 
 router
-  .get('/api/user/:username?', user.getUserInfo)
-  .patch('/api/user', checkToken, user.patchUserInfo)
+  .post('/api/register', user.register)
   .post('/api/login', user.login)
   .post('/api/logout', checkToken, user.logout)
+  .get('/api/user/:token?', checkToken, user.getUserInfo)
+  .patch('/api/user', checkToken, user.patchUserInfo)
 
 router
   .get('/api/tags/:id?', tag.getTagsOrArticles)
@@ -48,5 +51,14 @@ router
   .post('/api/comment', comment.postComment)
   .get('/api/comments', comment.getComments)
   .del('/api/comment/:id?', checkToken, comment.deleteComment) // 管理员可以删除评论
+
+router
+  .post('/api/pushVideos', moviesHome.pushVideos)
+  .get('/api/getVideos/:page?/:limit?/:tabType?', moviesHome.getVideos)
+  .get('/api/searchVideos/:page?/:limit?/:keyword?', moviesHome.searchVideos)
+  .get('/api/getVideoDetail/:id?', moviesHome.getVideoDetail)
+
+router
+  .get('/api/category', category.getCategory)
 
 export default router

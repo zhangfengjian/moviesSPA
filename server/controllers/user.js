@@ -9,6 +9,36 @@ const User = mongoose.model('User')
 
 const domain = config.app.domain ? config.app.domain : `http://${config.app.host}:${config.app.port}`
 
+export const register = async(ctx, next) => {
+  let body = ctx.request.body
+  body.password = md5(body.password)
+  try {
+    let checkUser = await User.findOne({ email: body.email }).exec()
+    if(checkUser){
+      ctx.body = {
+        success: false,
+        data: {
+          desc: 'The user is registered'
+        }
+      }
+    }else{
+      let user = new User(body)
+      await user.save()
+      ctx.body = {
+        success: true,
+        data: {
+          desc: 'registered successfully'
+        }
+      }
+    }
+    
+  } catch(e) {
+    ctx.body = {
+      success: false,
+      data: e
+    }
+  }
+}
 export const login = async(ctx, next) => {
   let { username, password } = ctx.request.body
   password = md5(password)
@@ -41,13 +71,9 @@ export const logout = (ctx, next) => {
 }
 
 export const getUserInfo = async(ctx, next) => {
-  let { username } = ctx.params
-  let avatarUrl = domain + '/public/' + config.user.avatar
-  if(!username){
-    // 获取管理员信息
+  let { username, userID } = ctx.params
     try {
-      let data = await User.findOne({ role: 'superAdmin' }).exec()
-      data.avatar = avatarUrl
+      let data = await User.findOne({ _id: userID, username: username }).exec()
       ctx.body = {
         success: true,
         data: data
@@ -58,21 +84,6 @@ export const getUserInfo = async(ctx, next) => {
         err: e
       }
     }
-  } else {
-    // 获取普通用户信息
-    try {
-      let data = await User.findOne({ username: username }).exec()
-      ctx.body = {
-        success: true,
-        data: data
-      }
-    } catch (e) {
-      ctx.body = {
-        success: false,
-        err: e
-      }
-    }
-  }
 }
 
 export const patchUserInfo = async(ctx, next) => {
@@ -140,7 +151,7 @@ export const githubCallback = async (ctx, next) => {
   await axios.get(u).then((ret) => {
     const {data} = ret
     var arr = data.split('&'),obj = {}
-    arr.forEach(function(item){
+    arr.forEach(function (item){
       var key = item.split('=')[0]
       var value = item.split('=')[1]
       obj[key] = value

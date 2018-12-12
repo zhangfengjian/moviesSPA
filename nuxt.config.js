@@ -13,10 +13,10 @@ module.exports = {
       { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_620064_hrymm1e94nnlv7vi.css' }
     ]
   },
-  css: ['~assets/css/main.scss', 'highlight.js/styles/github.css'],
+  css: ['~assets/css/main.scss', 'highlight.js/styles/github.css', 'element-ui/lib/theme-chalk/index.css', 'video.js/dist/video-js.css', 'vue-video-player/src/custom-theme.css'],
   loading: { color: '#42B983' },
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'element-ui', 'vue-video-player'],
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
@@ -29,10 +29,20 @@ module.exports = {
     }
   },
   manifest: {
-    name: 'VueBlog',
-    description: 'A blog system',
-    theme_color: '#42B983'
+    name: 'HPAV',
+    description: 'A Best Site',
+    theme_color: '#181818'
   },
   modules: ['@nuxtjs/pwa', '@nuxtjs/axios'],
-  plugins: ['~/plugins/components.js', '~/plugins/filters.js']
+  router: {
+    middleware: ['auth'],
+  },
+  plugins: [
+    '~/plugins/directives/index.js',
+    '~/plugins/components.js', 
+    '~/plugins/filters.js',
+    '~/plugins/element-ui.js',
+    { src: '~plugins/ga', ssr: false },
+    { src: '~/plugins/video-player', ssr: false }
+  ]
 }

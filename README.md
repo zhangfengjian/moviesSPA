@@ -68,7 +68,7 @@ export default {
   // 数据库配置，默认即可
   mongodb: {
     host: '127.0.0.1',
-    database: 'vueblog',
+    database: 'runoob',
     port: 27017,
     username: '',
     password: ''

@@ -240,7 +240,7 @@ export const upload = async(ctx, next) => {
 
   function getImgUrl(ctx) {
     return new Promise((resolve, reject) => {
-      form.parse(ctx.req, function(err, fields, files) {
+      form.parse(ctx.req, function (err, fields, files) {
         if (err) {
           console.log(err)
           reject(err)

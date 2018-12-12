@@ -16,15 +16,7 @@ function parseCookies(cookies) {
 }
 export const checkToken = async(ctx, next) => {
   // 可以从cookie里面获得token，也可以从request header里获取token
-  let cookieObj = parseCookies(ctx.get('Cookie')), token = ''
-  if(cookieObj && cookieObj.token) {
-    token = cookieObj.token
-  }else if(ctx.get('token')) {
-    token = ctx.get('token')
-  }else{
-    token = ''
-  }
-
+  let { token } = ctx.params
   if (token) {
     try {
       const decoded = jwt.verify(token, config.jwt.secret)
@@ -32,6 +24,8 @@ export const checkToken = async(ctx, next) => {
       const userID = decoded.userID
       let user = await User.findOne({ _id: userID, username: username }).exec()
       if (user._id && user.username) {
+        ctx.params.userID = user._id
+        ctx.params.username = user.username
         await next()
       } else {
         return (ctx.body = {
@@ -48,7 +42,7 @@ export const checkToken = async(ctx, next) => {
   } else {
     return (ctx.body = {
       success: false,
-      err: 'Please login'
+      err: token
     })
   }
 }

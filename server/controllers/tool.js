@@ -119,12 +119,12 @@ export const sendEmail = async (ctx, next) => {
     <p>回复内容：${fromUserContent}<p>
     <p><a href="${domain}/detail/${articleId}">查看原文</a></p>`.trim()
   }
-  await transporter.sendMail(mailOptions).then(function(info){
+  await transporter.sendMail(mailOptions).then(function (info){
     ctx.body = {
       success: true,
       data: info
     }
-  }).catch(function(err){
+  }).catch(function (err){
      ctx.body = {
       success: false,
       err: err

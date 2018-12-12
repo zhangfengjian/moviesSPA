@@ -12,6 +12,7 @@ async function start() {
 
   const host = process.env.HOST || globalConfig.app.host
   const port = process.env.PORT || globalConfig.app.port
+
   const router = new Router()
   app.use(cors())
   app.use(bodyParser())
