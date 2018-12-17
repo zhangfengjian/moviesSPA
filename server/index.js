@@ -14,7 +14,13 @@ async function start() {
   const port = process.env.PORT || globalConfig.app.port
 
   const router = new Router()
-  app.use(cors())
+  app.use(cors({
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+  }))
   app.use(bodyParser())
   app.use(KoaStatic('.'))
   router.use('', route.routes())
