@@ -28,7 +28,7 @@ export default {
     pass: ''
   },
   app: {
-    domain: '148.72.208.157',
+    domain: 'www.joysexes.com',
     host: '127.0.0.1',
     port: 3000,
     routerBaseApi: 'api'

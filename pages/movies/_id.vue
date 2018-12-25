@@ -25,12 +25,12 @@
             <div class="option-group">
                 <span>{{detail.viewsNum}}</span>
                 <div class="icon-box">
-                    <span class="iconfont icon-dianzan"></span>
-                    <span class="iconfont icon-shoucang"></span>
-                    <span class="iconfont icon-linked"></span>
-                    <span class="iconfont icon-twitter"></span>
-                    <span class="iconfont icon-skype"></span>
-                    <span class="iconfont icon-facebook"></span>
+                    <span class="iconfont icon-dianzan" @click="sharebtnClick"></span>
+                    <span class="iconfont icon-shoucang" @click="sharebtnClick"></span>
+                    <span class="iconfont icon-linked" @click="sharebtnClick"></span>
+                    <span class="iconfont icon-twitter" @click="sharebtnClick"></span>
+                    <span class="iconfont icon-skype" @click="sharebtnClick"></span>
+                    <span class="iconfont icon-facebook" @click="sharebtnClick"></span>
                 </div>
             </div>
             <div class="commond">
@@ -72,7 +72,7 @@
             return {
                 playerOptions : {
                     playbackRates: [0.5, 1.0, 1.5, 2.0],
-                    autoplay: false,
+                    autoplay: true,
                     muted: false,
                     loop: false,
                     preload: 'auto',
@@ -82,7 +82,7 @@
                     sources: {
                         type: "video/mp4"
                     },
-                    poster: "http://wx4.sinaimg.cn/large/a1b61d0aly1fn2h3xwat6j20dw0dwtbp.jpg",
+                    // poster: "http://wx4.sinaimg.cn/large/a1b61d0aly1fn2h3xwat6j20dw0dwtbp.jpg",
                     controlBar: {
                         playToggle: true,
                         timeDivider: true,
@@ -133,6 +133,9 @@
         methods: {
             toSearchList(val){
                 window.location.href = `/search/${val}`
+            },
+            sharebtnClick(){
+                ga('send','share_btn-click','click','detail_evnet','22')
             }
         },
         created(){

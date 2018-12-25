@@ -35,4 +35,6 @@ export default ({ app }) => {
   gtag("js", new Date());
 
   gtag("config", "UA-129672999-1");
+
+  gtag({Category:'share_btn_click',Action:'sharebtnClick'});
 };

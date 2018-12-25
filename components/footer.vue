@@ -1,7 +1,7 @@
 <template>
     <section class="footer-wrap">
         <footer class="footer">
-            <p>免责声明：本网站所有内容都是靠程序在互联网上自动搜集而来，仅供测试和学习交流。 </p>
+            <p>Disclaimer: All content on this website is for entertainment purposes only. </p>
         </footer>
     </section>
 </template>

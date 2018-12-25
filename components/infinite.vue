@@ -28,10 +28,10 @@ export default {
         scroll: {
             bind(el, binding) {
                 let scrollHandle=function () {
-                    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-                    let clientH = document.documentElement.clientHeight
+                    let scrollTop = Math.max(window.pageYOffset || 0, document.documentElement.scrollTop)
+                    let getVisibleHeight = document.documentElement.clientHeight
                     let pageH = document.documentElement.scrollHeight
-                    if (scrollTop + clientH == pageH) {
+                    if (pageH - scrollTop - getVisibleHeight <= 110) {
                         let onLoad = binding.value
                         onLoad()
                     }

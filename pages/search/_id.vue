@@ -55,7 +55,7 @@ export default {
     },
     computed:{
         ...mapState({
-            userAgent: state => state.UA
+            userAgent: state => state.UA.UA
         }),
         searchResultUA(){
             if(this.userAgent){
